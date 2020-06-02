@@ -58,33 +58,34 @@ vector<edge> kruskal()
     sort(edges, edges+m, weight_comparator());
     
     int mst_wt=0; vector<edge> mst;
+    
     int a=edges[0].a, b=edges[0].b, w=edges[0].w;
     parent[b]=a;
     size[a]=2;
-    int src=a;
-    mst.push_back(edges[0]);    
+    mst.push_back(edges[0]);
+    
     for(int i=1;i<m;++i)
     {
         a=edges[i].a, b=edges[i].b, w=edges[i].w;
-        parent[b]=a;
-        size[a]=2;
         
-        if(!same(src,a))
+        
+        if(!same(a,b))
         {   mst.push_back(edges[i]);
-            unite(src,a);
-            src=find(src);
+            unite(a,b);
             
         }
         
     }
-   // return 0;
     return mst;
     
 }
 
 int main()
 {
-    
+    int t;
+    cin>>t;
+    while(t--)
+    {
     cin>>n>>m;
     
     for(int i=0;i<m;++i)
@@ -96,12 +97,14 @@ int main()
     
     //calling kruskal for mst
    vector<edge> mst = kruskal();
+   long mn_mst=0;
    for(auto it:mst)
    {
-       cout<<it.a<<"-->"<<it.b<<" "<<it.w<<endl;
+       mn_mst+=it.w;
    }
+   cout<<mn_mst<<endl;
     
     
-    
+    }   
     
 }
